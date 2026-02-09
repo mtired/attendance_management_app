@@ -35,4 +35,6 @@ return [
         ],
     ],
 
+    'mail_inbox_url' => env('MAIL_INBOX_URL', 'http://localhost:8025'),
+
 ];

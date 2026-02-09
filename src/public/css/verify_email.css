@@ -1,0 +1,95 @@
+.verify-email {
+    width: 100%;
+    min-height: calc(100vh - 80px); /* ヘッダーがある想定。不要なら消してOK */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #ffffff;
+}
+
+.verify-email__inner {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 319px; /* 指定：319px 399pxあたりの雰囲気 */
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+}
+
+/* 完了通知 text */
+.verify-email__message {
+    width: 720px;
+    min-height: 58px;
+    margin: 0;
+    text-align: center;
+
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #000000;
+}
+
+/* 認証確認ボタン button */
+.verify-email__button {
+    width: 257px;
+    height: 69px;
+    margin-top: 40px; /* 399→439 くらいの差分のイメージ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+    border-radius: 10px;
+    border: 1px solid #000000;
+    background: #d9d9d9;
+
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    cursor: pointer;
+}
+
+.verify-email__button:hover {
+    opacity: 0.9;
+}
+
+/* 再送リンク text */
+.verify-email__resend-form {
+    margin-top: 40px; /* 629→628付近の見た目調整 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.verify-email__resend-link {
+    width: 257px;
+    height: 53.29px;
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    font-size: 20px;
+    font-weight: 400;
+    color: #0073cc;
+    cursor: pointer;
+}
+
+.verify-email__resend-link:hover {
+    text-decoration: underline;
+}
+
+/* ===============================
+   タブレット（768–850px）
+================================*/
+@media (min-width: 768px) and (max-width: 850px) {
+    .verify-email__inner {
+        padding-top: 200px;
+    }
+
+    .verify-email__message {
+        width: 100%;
+    }
+}

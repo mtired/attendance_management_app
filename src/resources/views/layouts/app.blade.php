@@ -24,7 +24,6 @@
       @unless (request()->is('login') || request()->is('register'))
         {{-- 右側メニュー --}}
         <nav class="header__nav">
-
           <a href="/attendance/list" class="header__nav-text">
             勤怠一覧
           </a>
@@ -40,7 +39,7 @@
           @auth
             <form action="/logout" method="post">
               @csrf
-              <text class="header__nav-text" type="submit">ログアウト</text>
+              <button class="header__nav-text" type="submit">ログアウト</button>
             </form>
           @endauth
 

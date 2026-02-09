@@ -31,7 +31,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-       //$this->app->singleton(VerifyEmailResponseContract::class, VerifyEmailResponse::class);
+       $this->app->singleton(VerifyEmailResponseContract::class, VerifyEmailResponse::class);
     }
 
     /**
