@@ -63,15 +63,8 @@ class FortifyServiceProvider extends ServiceProvider
                         return redirect()->route('verification.notice');
                     }
 
-                    // 認証済みでプロフィール未完了ならプロフィール設定へ
-                    $completed = !is_null(optional($user->profile)->profile_completed_at);
-                    if (! $completed) {
-                        $request->session()->forget('url.intended');
-                        return redirect()->route('profile.edit');
-                    }
-
                     // それ以外は intended → top
-                    return redirect()->intended(route('top'));
+                    return redirect()->intended(route('/attendance'));
                 }
             };
         });
@@ -88,7 +81,7 @@ class FortifyServiceProvider extends ServiceProvider
                 config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
 
                 // ✅ ここで FormRequest の日本語メッセージを先に適用
-                //ValidateLoginUsingFormRequest::class,
+                ValidateLoginUsingFormRequest::class,
 
                 Features::enabled(Features::twoFactorAuthentication()) ? RedirectIfTwoFactorAuthenticatable::class : null,
                 AttemptToAuthenticate::class,

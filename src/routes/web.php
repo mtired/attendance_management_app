@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,9 @@ Route::middleware('guest')->group(function () {
 
     // ユーザ登録画面
     Route::get('/register', [RegisterController::class, 'index']);
+
+    // ログイン画面
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
 });
 
 /*
