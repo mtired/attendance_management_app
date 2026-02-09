@@ -1,7 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
 
-Route::get('/', function () {
-    return view('welcome');
+/*
+|--------------------------------------------------------------------------
+| ゲスト（未ログイン）
+|--------------------------------------------------------------------------
+*/
+Route::middleware('guest')->group(function () {
+
+    // ユーザ登録画面
+    Route::get('/register', [RegisterController::class, 'index']);
 });
