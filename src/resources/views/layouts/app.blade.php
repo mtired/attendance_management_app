@@ -2,20 +2,21 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>勤怠アプリ</title>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
+  <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/common.css') }}" />
   @yield('css')
 </head>
+
+@yield('js')
 
 <body>
   <header class="header">
     <div class="header__inner">
-
       {{-- ロゴ --}}
       <a href="/" class="header__logo-link">
         <img src="{{ asset('images/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH" class="header__logo" />
@@ -39,22 +40,19 @@
           @auth
             <form action="/logout" method="post">
               @csrf
-              <button class="header__nav-text" type="submit">ログアウト</button>
+              <button class="header__nav-text" type="submit">
+                ログアウト
+              </button>
             </form>
-          @endauth
-
-          @guest
+            @endauth @guest
             <a href="/login" class="header__nav-text">ログイン</a>
           @endguest
         </nav>
       @endunless
-
     </div>
   </header>
 
-  <main>
-    @yield('content')
-  </main>
+  <main>@yield('content')</main>
 </body>
 
 </html>

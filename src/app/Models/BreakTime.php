@@ -10,12 +10,13 @@ class BreakTime extends Model
 {
     use HasFactory;
 
+    protected $table = 'breaks';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $table = 'breaks';
 
     protected $fillable = [
         'attendance_id',

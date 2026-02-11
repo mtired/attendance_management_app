@@ -1,10 +1,10 @@
 .verify-email {
     width: 100%;
-    min-height: calc(100vh - 80px); /* ヘッダーがある想定。不要なら消してOK */
+    padding: 60px 16px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    background: #ffffff;
+    background: #f0eff2;
 }
 
 .verify-email__inner {
@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 319px; /* 指定：319px 399pxあたりの雰囲気 */
+    padding-top: 150px;
     padding-left: 16px;
     padding-right: 16px;
     box-sizing: border-box;
@@ -36,7 +36,7 @@
 .verify-email__button {
     width: 257px;
     height: 69px;
-    margin-top: 40px; /* 399→439 くらいの差分のイメージ */
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,7 +58,7 @@
 
 /* 再送リンク text */
 .verify-email__resend-form {
-    margin-top: 40px; /* 629→628付近の見た目調整 */
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;

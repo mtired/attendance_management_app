@@ -10,6 +10,11 @@
     padding: 0 12px;
 }
 
+body {
+    margin: 0;
+    background: #f0eff2;
+}
+
 /* ロゴ画像 */
 .header__logo {
     height: 20px;

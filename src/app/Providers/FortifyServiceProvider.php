@@ -63,8 +63,8 @@ class FortifyServiceProvider extends ServiceProvider
                         return redirect()->route('verification.notice');
                     }
 
-                    // それ以外は intended → top
-                    return redirect()->intended(route('/attendance'));
+                    // それ以外は打刻画面へ
+                    return redirect()->intended(route('attendance.index'));
                 }
             };
         });
