@@ -1,0 +1,79 @@
+.register-attendance {
+    padding: 60px 16px;
+    background: #f0eff2;
+}
+
+.register-attendance__inner {
+    max-width: 680px;
+    padding: 40px 24px 120px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.attendance__badge {
+    height: 40px;
+    width: 100px;
+    border-radius: 50px;
+    background: #c8c8c8;
+    color: #696969;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+}
+
+.attendance__date {
+    margin: 15px 0 15px;
+    font-size: 40px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.attendance__time {
+    margin: 0 0 44px;
+    font-size: 80px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.attendance__actions {
+    display: flex;
+    gap: 44px;
+    align-items: center;
+    justify-content: center;
+}
+
+.attendance__btn {
+    width: 220px;
+    height: 75px;
+    border-radius: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.15em;
+}
+
+.attendance__btn--black {
+    background: #000;
+    color: #fff;
+}
+
+.attendance__btn--white {
+    background: #fff;
+    color: #000000;
+}
+
+.attendance__txt {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+}
