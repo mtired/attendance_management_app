@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterAttendanceController;
+use App\Http\Controllers\AttendanceListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,4 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/attendances/break-end', [RegisterAttendanceController::class, 'breakEnd'])
         ->name('attendance.break_end');
+
+    Route::get('/attendance/list', [AttendanceListController::class, 'index'])->name('attendance_list.index');
+    Route::get('/attendance/{attendance}', [AttendanceListController::class, 'show'])->name('attendance_list.show'); // 詳細（とりあえず枠）
 });
