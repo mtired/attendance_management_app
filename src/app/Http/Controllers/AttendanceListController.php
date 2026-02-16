@@ -52,16 +52,6 @@ class AttendanceListController extends Controller
         ]);
     }
 
-    // ここから下は「とりあえず枠」：後で詳細画面作るなら実装
-    public function show(Attendance $attendance)
-    {
-        // 認可（他人の勤怠見れないように）
-        abort_unless($attendance->user_id === Auth::id(), 403);
-
-        // 詳細画面を作るならここ
-        return view('attendance_list.show', compact('attendance'));
-    }
-
     /**
      * 勤怠一覧の該当月の空データ作成
      * ※1日〜月末のデータを作成

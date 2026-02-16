@@ -19,7 +19,7 @@ class AttendanceRequestBreak extends Model
     protected $fillable = [
         'request_id',
         'target_break_id',
-        'action',
+        'status',
         'proposed_break_start_at',
         'proposed_break_end_at',
     ];

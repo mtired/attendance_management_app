@@ -5,6 +5,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterAttendanceController;
 use App\Http\Controllers\AttendanceListController;
+use App\Http\Controllers\AttendanceDetailController;
+use App\Http\Controllers\AttendanceChangeRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/attendances/break-end', [RegisterAttendanceController::class, 'breakEnd'])
         ->name('attendance.break_end');
 
+    // 勤怠一覧画面表示
     Route::get('/attendance/list', [AttendanceListController::class, 'index'])->name('attendance_list.index');
-    Route::get('/attendance/{attendance}', [AttendanceListController::class, 'show'])->name('attendance_list.show'); // 詳細（とりあえず枠）
+
+    // 勤怠詳細表示
+    Route::get('/attendance/{attendance}', [AttendanceDetailController::class, 'show'])->name('attendance_detail.show');
+
+    // 勤怠申請
+    Route::post('/stamp_correction_request/list', [AttendanceChangeRequestController::class, 'store'])->name('attendance_change_request.store');
 });
