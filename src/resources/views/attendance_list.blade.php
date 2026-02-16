@@ -55,7 +55,7 @@
                                 <td class="attendance-table__td">
                                     @if ($a->id)
                                         <a class="attendance-table__detail"
-                                            href="{{ route('attendance_list.show', ['attendance' => $a->id]) }}">
+                                            href="{{ route('attendance_detail.show', $a->id) }}">
                                             詳細
                                         </a>
                                     @else
