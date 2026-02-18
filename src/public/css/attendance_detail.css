@@ -80,7 +80,6 @@ body {
     color: #666;
     font-weight: 800;
     text-align: center;
-    background: #fafafa;
 }
 
 /* 右列（値列） */
@@ -181,6 +180,24 @@ body {
 
 .btn-edit:hover {
     opacity: 0.92;
+}
+
+.form-errors {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border: 1px solid #e0b4b4;
+    background: #fff5f5;
+    border-radius: 8px;
+}
+
+.form-errors__list {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.form-errors__item {
+    color: #9f3a38;
+    line-height: 1.6;
 }
 
 /* ===== Responsive ===== */

@@ -60,11 +60,15 @@
                                 <th class="detail-table__th">出勤・退勤</th>
                                 <td class="detail-table__td">
                                     <div class="time-range">
-                                        <input class="time-range__input" type="time" name="requested_clock_in_at"
-                                            value="{{ $attendance->clock_in_at ? \Carbon\Carbon::parse($attendance->clock_in_at)->format('H:i') : '' }}">
+                                        <input class="time-range__input" type="text" name="requested_clock_in_at"
+                                            value="{{ $attendance->clock_in_at ? \Carbon\Carbon::parse($attendance->clock_in_at)->format('H:i') : '' }}"
+                                            placeholder="h:mm">
+
                                         <span class="time-range__sep">〜</span>
-                                        <input class="time-range__input" type="time" name="requested_clock_out_at"
-                                            value="{{ $attendance->clock_out_at ? \Carbon\Carbon::parse($attendance->clock_out_at)->format('H:i') : '' }}">
+
+                                        <input class="time-range__input" type="text" name="requested_clock_out_at"
+                                            value="{{ $attendance->clock_out_at ? \Carbon\Carbon::parse($attendance->clock_out_at)->format('H:i') : '' }}"
+                                            placeholder="h:mm">
                                     </div>
                                 </td>
                             </tr>
@@ -85,15 +89,17 @@
                                                     name="requested_breaks[{{ $i }}][target_break_id]"
                                                     value="{{ $break->id }}">
                                             @endif
-                                            <input class="time-range__input" type="time"
+                                            <input class="time-range__input" type="text"
                                                 name="requested_breaks[{{ $i }}][start]"
-                                                value="{{ $break && $break->break_start_at ? \Carbon\Carbon::parse($break->break_start_at)->format('H:i') : '' }}">
+                                                value="{{ $break && $break->break_start_at ? \Carbon\Carbon::parse($break->break_start_at)->format('H:i') : '' }}"
+                                                placeholder="h:mm">
 
                                             <span class="time-range__sep">〜</span>
 
-                                            <input class="time-range__input" type="time"
+                                            <input class="time-range__input" type="text"
                                                 name="requested_breaks[{{ $i }}][end]"
-                                                value="{{ $break && $break->break_end_at ? \Carbon\Carbon::parse($break->break_end_at)->format('H:i') : '' }}">
+                                                value="{{ $break && $break->break_end_at ? \Carbon\Carbon::parse($break->break_end_at)->format('H:i') : '' }}"
+                                                placeholder="h:mm">
                                         </div>
                                     </td>
                                 </tr>
@@ -109,6 +115,17 @@
                         </tbody>
                     </table>
                 </section>
+                {{-- ▼ テーブルの下にエラーまとめ表示 --}}
+                @if ($errors->any())
+                    <div class="form-errors" role="alert" aria-live="polite">
+                        <ul class="form-errors__list">
+                            @foreach ($errors->all() as $error)
+                                <li class="form-errors__item">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="attendance-detail__action-form">
                     <button class="attendance-detail__actions" type="submit">
                         修正
