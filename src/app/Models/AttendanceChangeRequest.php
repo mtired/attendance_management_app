@@ -43,7 +43,7 @@ class AttendanceChangeRequest extends Model
         return $this->belongsTo(Attendance::class);
     }
 
-    public function requester()
+    public function requestedBy()
     {
         return $this->belongsTo(User::class, 'requested_by');
     }

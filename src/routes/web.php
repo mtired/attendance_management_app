@@ -68,4 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // 勤怠申請
     Route::post('/stamp_correction_request/list', [AttendanceChangeRequestController::class, 'store'])->name('attendance_change_request.store');
+
+    // 勤怠申請一覧表示
+    Route::get('/stamp_correction_request/list', [AttendanceChangeRequestController::class, 'index'])->name('attendance_change_request.index');
 });
