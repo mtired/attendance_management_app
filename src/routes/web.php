@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminFortifySessionController;
 use App\Http\Controllers\AdminAttendanceListController;
 use App\Http\Controllers\AdminAttendanceDetailController;
 use App\Http\Controllers\AdminAttendanceController;
+use App\Http\Controllers\AdminStaffListController;
 
 
 /*
@@ -113,5 +114,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // 勤怠更新（勤怠詳細で修正）
         Route::post('/admin/attendances/update', [AdminAttendanceController::class, 'update'])
             ->name('attendance.update');
+
+        // スタッフ一覧画面
+        Route::get('/staff/list', [AdminStaffListController::class, 'index'])
+            ->name('staff_list.index');
     });
 });
