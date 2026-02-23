@@ -30,12 +30,18 @@
                 <nav class="header__nav">
                     {{-- 一般ユーザーでログイン中 --}}
                     @auth('web')
-                    <a href="/attendance" class="header__nav-text">勤怠</a>
-                    <a href="/attendance/list" class="header__nav-text"
+                    <a
+                        href="{{ route('attendance.index') }}"
+                        class="header__nav-text"
+                        >勤怠</a
+                    >
+                    <a
+                        href="{{ route('attendance_list.index') }}"
+                        class="header__nav-text"
                         >勤怠一覧</a
                     >
                     <a
-                        href="/stamp_correction_request/list"
+                        href="{{ route('attendance_change_request.index') }}"
                         class="header__nav-text"
                         >申請</a
                     >
@@ -49,7 +55,9 @@
 
                     {{-- 管理者でログイン中 --}}
                     @auth('admin')
-                    <a href="admin/attendance/list" class="header__nav-text"
+                    <a
+                        href="{{ route('admin.attendance_list.index') }}"
+                        class="header__nav-text"
                         >勤怠一覧</a
                     >
                     <a href="/admin/staff/list" class="header__nav-text"
