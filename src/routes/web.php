@@ -8,6 +8,7 @@ use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\AttendanceDetailController;
 use App\Http\Controllers\AttendanceChangeRequestController;
 use App\Http\Controllers\AdminFortifySessionController;
+use App\Http\Controllers\AdminAttendanceListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,13 +97,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // ログイン済み管理者だけが見れる
     Route::middleware('auth:admin')->group(function () {
 
-        // ★ここにも fortify.admin を追加
         Route::post('/logout', [AdminFortifySessionController::class, 'destroy'])
             ->middleware('fortify.admin')
             ->name('logout');
 
-        Route::get('/', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/attendance/list', [AdminAttendanceListController::class, 'index'])
+            ->name('attendance_list.index');
     });
 });
