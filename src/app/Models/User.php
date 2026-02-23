@@ -55,4 +55,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(AttendanceChangeRequest::class, 'reviewed_by');
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->admin()->exists();
+    }
 }

@@ -102,6 +102,13 @@ body {
     justify-items: center;
 }
 
+/* 名前だけ幅を広げる（1カラムで表示） */
+.detail-split--name {
+    grid-template-columns: minmax(160px, 1fr); /* 好きに調整OK */
+    column-gap: 0;
+    justify-items: start; /* 左寄せにしたいなら start */
+}
+
 /* 強調（名前/年/月日） */
 .detail-split__item--strong {
     font-weight: 900;
@@ -183,11 +190,7 @@ body {
 }
 
 .form-info {
-    margin-top: 12px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    background: #f6f6f6;
-    border: 1px solid #ddd;
+    margin-top: 5px;
 }
 
 .form-info--disabled {
