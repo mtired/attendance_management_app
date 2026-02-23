@@ -25,27 +25,37 @@
             @unless (request()->is('login') || request()->is('register'))
                 {{-- 右側メニュー --}}
                 <nav class="header__nav">
-                    <a href="/attendance/list" class="header__nav-text">
-                        勤怠一覧
-                    </a>
-
-                    <a href="/admin/staff/list" class="header__nav-text">
-                        スタッフ一覧
-                    </a>
-
-                    <a href="/stamp_correction_request/list" class="header__nav-text">
-                        申請一覧
-                    </a>
-
-                    @auth
-                        <form action="/logout" method="post">
+                    {{-- 一般ユーザーでログイン中 --}}
+                    @auth('web')
+                        <a href="/attendance" class="header__nav-text">勤怠</a>
+                        <a href="/attendance/list" class="header__nav-text">勤怠一覧</a>
+                        <a href="/stamp_correction_request/list" class="header__nav-text">申請</a>
+                        <form action="{{ route('logout') }}" method="post">
                             @csrf
                             <button class="header__nav-text" type="submit">
                                 ログアウト
                             </button>
                         </form>
-                        @endauth @guest
-                        <a href="/login" class="header__nav-text">ログイン</a>
+                    @endauth
+
+                    {{-- 管理者でログイン中 --}}
+                    @auth('admin')
+                        <a href="/attendance/list" class="header__nav-text">勤怠一覧</a>
+                        <a href="/admin/staff/list" class="header__nav-text">スタッフ一覧</a>
+                        <a href="/stamp_correction_request/list" class="header__nav-text">申請一覧</a>
+                        <form action="{{ route('admin.logout') }}" method="post">
+                            @csrf
+                            <button class="header__nav-text" type="submit">
+                                ログアウト
+                            </button>
+                        </form>
+                    @endauth
+
+                    {{-- どっちも未ログイン --}}
+                    @guest('web')
+                        @guest('admin')
+                            <a href="/login" class="header__nav-text">ログイン</a>
+                        @endguest
                     @endguest
                 </nav>
             @endunless

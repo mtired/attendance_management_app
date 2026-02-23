@@ -22,7 +22,7 @@
                             <tr class="detail-table__row">
                                 <th class="detail-table__th">名前</th>
                                 <td class="detail-table__td detail-table__td--split">
-                                    <div class="detail-split">
+                                    <div class="detail-split detail-split--name">
                                         <span class="detail-split__item detail-split__item--strong">
                                             {{ $user->name ?? Auth::user()->name }}
                                         </span>

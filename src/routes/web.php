@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterAttendanceController;
 use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\AttendanceDetailController;
 use App\Http\Controllers\AttendanceChangeRequestController;
+use App\Http\Controllers\AdminFortifySessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ Route::middleware('guest')->group(function () {
     // ユーザ登録画面
     Route::get('/register', [RegisterController::class, 'index']);
 
-    // ログイン画面
+    // ログイン画面（一般）
     Route::get('/login', [LoginController::class, 'index'])->name('login');
 });
 
@@ -71,4 +72,37 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // 勤怠申請一覧表示
     Route::get('/stamp_correction_request/list', [AttendanceChangeRequestController::class, 'index'])->name('attendance_change_request.index');
+});
+
+/*
+|--------------------------------------------------------------------------
+| 管理者（別guard）
+|--------------------------------------------------------------------------
+*/
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // 未ログインの管理者だけが見れる
+    Route::middleware('guest:admin')->group(function () {
+
+        Route::get('/login', [AdminFortifySessionController::class, 'index'])
+            ->name('login');
+
+        // ★ここに fortify.admin を追加
+        Route::post('/login', [AdminFortifySessionController::class, 'store'])
+            ->middleware('fortify.admin')
+            ->name('login.store');
+    });
+
+    // ログイン済み管理者だけが見れる
+    Route::middleware('auth:admin')->group(function () {
+
+        // ★ここにも fortify.admin を追加
+        Route::post('/logout', [AdminFortifySessionController::class, 'destroy'])
+            ->middleware('fortify.admin')
+            ->name('logout');
+
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+    });
 });

@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Actions\Fortify\EnsureUserIsAdminWhenAdminLogin;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -23,6 +24,7 @@ use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\VerifyEmailResponse as VerifyEmailResponseContract;
 use App\Http\Responses\VerifyEmailResponse;
+use Laravel\Fortify\Contracts\LogoutResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -31,7 +33,22 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-       $this->app->singleton(VerifyEmailResponseContract::class, VerifyEmailResponse::class);
+        $this->app->singleton(VerifyEmailResponseContract::class, VerifyEmailResponse::class);
+
+        // ログアウト後の遷移を分岐
+        $this->app->singleton(LogoutResponse::class, function () {
+            return new class implements LogoutResponse {
+                public function toResponse($request)
+                {
+                    // 管理者側の logout ルートなら管理者ログインへ
+                    if ($request->routeIs('admin.logout')) {
+                        return redirect()->route('admin.login');
+                    }
+
+                    return redirect()->route('login');
+                }
+            };
+        });
     }
 
     /**
@@ -55,16 +72,20 @@ class FortifyServiceProvider extends ServiceProvider
             return new class implements LoginResponse {
                 public function toResponse($request)
                 {
-                    $user = $request->user();
+                    $request->session()->forget('url.intended');
 
-                    // 未認証なら誘導画面へ
+                    // 管理者ログイン
+                    if ($request->routeIs('admin.login.store')) {
+                        return redirect()->route('attendance.index');
+                    }
+
+                    // 一般ログイン：未認証なら誘導
+                    $user = $request->user();
                     if ($user && ! $user->hasVerifiedEmail()) {
-                        $request->session()->forget('url.intended');
                         return redirect()->route('verification.notice');
                     }
 
-                    // それ以外は打刻画面へ
-                    return redirect()->intended(route('attendance.index'));
+                    return redirect()->route('attendance.index');
                 }
             };
         });
@@ -80,7 +101,7 @@ class FortifyServiceProvider extends ServiceProvider
                 config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
                 config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
 
-                // ✅ ここで FormRequest の日本語メッセージを先に適用
+                // FormRequest の日本語メッセージを先に適用
                 ValidateLoginUsingFormRequest::class,
 
                 Features::enabled(Features::twoFactorAuthentication()) ? RedirectIfTwoFactorAuthenticatable::class : null,
@@ -90,7 +111,7 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
         });
