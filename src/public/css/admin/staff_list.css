@@ -1,0 +1,126 @@
+/* ====== Base ====== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: #111;
+    background: #f0eff2;
+    font-family:
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        "Noto Sans JP",
+        sans-serif;
+}
+
+/* ====== Page ====== */
+.staff-index {
+    padding: 40px 16px 80px;
+}
+
+.staff-index__inner {
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+.staff-index__title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 12px 0 18px;
+}
+
+.staff-index__title-bar {
+    width: 4px;
+    height: 22px;
+    background: #000;
+    border-radius: 2px;
+}
+
+/* ====== Table ====== */
+.staff-table {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.staff-table__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff-table__head .staff-table__row {
+    background: #fafafa;
+}
+
+.staff-table__th,
+.staff-table__td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #ededed;
+    text-align: center;
+    font-size: 13px;
+}
+
+.staff-table__th {
+    color: #737373;
+    font-weight: 800;
+}
+
+.staff-table__td {
+    color: #737373;
+    font-weight: 700;
+}
+
+.staff-table__row:last-child .staff-table__td {
+    border-bottom: none;
+}
+
+.staff-table__detail {
+    color: #111;
+    text-decoration: none;
+    font-weight: 900;
+}
+
+.staff-table__detail:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.staff-table__empty {
+    padding: 22px 14px;
+    color: #777;
+    font-weight: 700;
+}
+
+/* ===============================
+   タブレット（768–850px）
+================================*/
+@media (min-width: 768px) and (max-width: 850px) {
+    .site-header__inner {
+        padding: 0 16px;
+    }
+
+    .site-header__nav {
+        gap: 14px;
+    }
+
+    .staff-index__inner {
+        max-width: 100%;
+    }
+
+    .staff-table__th,
+    .staff-table__td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+}

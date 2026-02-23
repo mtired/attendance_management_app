@@ -60,7 +60,9 @@
                         class="header__nav-text"
                         >勤怠一覧</a
                     >
-                    <a href="/admin/staff/list" class="header__nav-text"
+                    <a
+                        href="{{ route('admin.staff_list.index') }}"
+                        class="header__nav-text"
                         >スタッフ一覧</a
                     >
                     <a
