@@ -51,8 +51,7 @@
                         <td class="attendance-table__td">{{ $a->break_time_label ?? '' }}</td>
                         <td class="attendance-table__td">{{ $a->total_time_label ?? '' }}</td>
                         <td class="attendance-table__td">
-                            @if ($a->id)
-                            <a class="attendance-table__detail" href="{{ route('attendance_detail.show', $a->id) }}">
+                            <a class="attendance-table__detail" href="{{ route('admin.attendance_detail.show', $a->id) }}">
                                 詳細
                             </a>
                         </td>

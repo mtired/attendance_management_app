@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
-class AttendanceDetailController extends Controller
+class AdminAttendanceDetailController extends Controller
 {
     // 勤怠詳細表示
     public function show(Attendance $attendance)
     {
-        abort_unless($attendance->user_id === Auth::id(), 403);
+        // user を確実に読み込む（N+1回避にもなる）
+        $attendance->load('user');
 
-        $user = Auth::user();
+        // ここが重要：user_id じゃなくて Userモデルを渡す
+        $user = $attendance->user;
 
         $breaks = $attendance->breaks()->orderBy('break_start_at')->get();
 
@@ -29,18 +31,15 @@ class AttendanceDetailController extends Controller
         if ($pendingRequest) {
             $requestBreaks = $pendingRequest->requestBreaks()->get(); // attendance_request_breaks
 
-            // status=1（変更）: target_break_id をキーにして差し替えできるようにする
             $changesByTargetId = $requestBreaks
                 ->where('status', 1)
                 ->keyBy('target_break_id');
 
-            // status=0（追加）: 追加分だけ抽出
             $added = $requestBreaks
                 ->where('status', 0)
                 ->sortBy('proposed_break_start_at')
                 ->values();
 
-            // 元休憩を「変更があれば proposed に差し替え」して並べる
             $merged = $breaks->map(function ($b) use ($changesByTargetId) {
                 $chg = $changesByTargetId->get($b->id);
 
@@ -51,7 +50,6 @@ class AttendanceDetailController extends Controller
                 ];
             });
 
-            // 末尾に追加分を足す
             $addedRows = $added->map(function ($a) {
                 return (object) [
                     'start_at' => $a->proposed_break_start_at,
@@ -63,7 +61,8 @@ class AttendanceDetailController extends Controller
             $displayBreaks = $merged->concat($addedRows)->values();
         }
 
-        return view('attendance_detail', compact(
+        // 管理者用なら view パスも admin 側にするのが普通（あなたのBladeに合わせて調整）
+        return view('admin.attendance_detail', compact(
             'attendance',
             'user',
             'breaks',

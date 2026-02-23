@@ -9,6 +9,9 @@ use App\Http\Controllers\AttendanceDetailController;
 use App\Http\Controllers\AttendanceChangeRequestController;
 use App\Http\Controllers\AdminFortifySessionController;
 use App\Http\Controllers\AdminAttendanceListController;
+use App\Http\Controllers\AdminAttendanceDetailController;
+use App\Http\Controllers\AdminAttendanceController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +91,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/login', [AdminFortifySessionController::class, 'index'])
             ->name('login');
 
-        // ★ここに fortify.admin を追加
         Route::post('/login', [AdminFortifySessionController::class, 'store'])
             ->middleware('fortify.admin')
             ->name('login.store');
@@ -97,11 +99,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // ログイン済み管理者だけが見れる
     Route::middleware('auth:admin')->group(function () {
 
+        // ログアウト
         Route::post('/logout', [AdminFortifySessionController::class, 'destroy'])
             ->middleware('fortify.admin')
             ->name('logout');
 
-        Route::get('/attendance/list', [AdminAttendanceListController::class, 'index'])
-            ->name('attendance_list.index');
+        // 勤怠一覧(管理者)
+        Route::get('/attendance/list', [AdminAttendanceListController::class, 'index'])->name('attendance_list.index');
+
+        // 勤怠詳細(管理者)
+        Route::get('/attendance/{attendance}', [AdminAttendanceDetailController::class, 'show'])->name('attendance_detail.show');
+
+        // 勤怠更新（勤怠詳細で修正）
+        Route::post('/admin/attendances/update', [AdminAttendanceController::class, 'update'])
+            ->name('attendance.update');
     });
 });
