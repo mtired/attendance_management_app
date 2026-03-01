@@ -12,7 +12,7 @@
                 <span class="attendance-detail__title-bar"></span>
                 勤怠詳細
             </h1>
-            <form class="attendance-detail__form" action="{{ route('admin.attendance.update') }}" method="post">
+            <form class="staff-attendance-list__form" action="{{ route('admin.attendance.update') }}" method="post">
                 @csrf
                 <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
                 <section class="detail-card">
