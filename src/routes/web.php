@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminAttendanceListController;
 use App\Http\Controllers\AdminAttendanceDetailController;
 use App\Http\Controllers\AdminAttendanceController;
 use App\Http\Controllers\AdminStaffListController;
+use App\Http\Controllers\AdminStaffAttendanceListController;
 
 
 /*
@@ -118,5 +119,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // スタッフ一覧画面
         Route::get('/staff/list', [AdminStaffListController::class, 'index'])
             ->name('staff_list.index');
+
+        // スタッフ別勤怠一覧画面
+        Route::get('/attendances/staff/{user}', [AdminStaffAttendanceListController::class, 'index'])
+            ->name('staff_attendance_list.index');
+
+        // 勤怠CSV出力
+        Route::get('/attendances/staff/{user}/csv', [AdminStaffAttendanceListController::class, 'exportCsv'])
+            ->name('staff_attendance_list.csv');
     });
 });

@@ -29,7 +29,7 @@
                         <td class="staff-table__td">{{ $a->name }}</td>
                         <td class="staff-table__td">{{ $a->email ?? '' }}</td>
                         <td class="staff-table__td">
-                            <a class="staff-table__detail" href="{{ route('admin.attendance_detail.show', $a->id) }}">
+                            <a class="staff-table__detail" href="{{ route('admin.staff_attendance_list.index', ['user' => $a->id]) }}">
                                 詳細
                             </a>
                         </td>

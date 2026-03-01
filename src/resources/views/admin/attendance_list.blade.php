@@ -12,7 +12,7 @@
             勤怠一覧
         </h1>
 
-        {{-- 日付移動（※変数名は prevMonth/nextMonth のままでOK） --}}
+        {{-- 日付移動 --}}
         <div class="month-nav">
             <a class="month-nav__side" href="{{ route('admin.attendance_list.index', ['month' => $prevMonth]) }}">
                 <span class="month-nav__arrow">←</span> 前日
