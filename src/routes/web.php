@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminAttendanceDetailController;
 use App\Http\Controllers\AdminAttendanceController;
 use App\Http\Controllers\AdminStaffListController;
 use App\Http\Controllers\AdminStaffAttendanceListController;
-
+use App\Http\Controllers\AdminChangeRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,5 +127,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // 勤怠CSV出力
         Route::get('/attendances/staff/{user}/csv', [AdminStaffAttendanceListController::class, 'exportCsv'])
             ->name('staff_attendance_list.csv');
+
+        // 勤怠申請一覧
+        Route::get('/stamp_correction_request/list', function () {
+            abort(404);
+        })
+            ->middleware(['switch.scr.list'])
+            ->name('attendance_change_request.index');
+
+        // 申請詳細(管理者)
+        Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminChangeRequestController::class, 'show'])->name('request_detail.show');
     });
 });

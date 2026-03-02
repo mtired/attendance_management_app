@@ -9,27 +9,23 @@ use App\Models\Attendance;
 use App\Http\Requests\AttendanceChangeRequestStoreRequest;
 use Illuminate\Http\Request;
 
-class AttendanceChangeRequestController extends Controller
+class AdminChangeRequestController extends Controller
 {
     public function index(Request $request)
     {
         $activeTab = $request->query('tab', 'pending');
 
-        $userId = Auth::id();
-
         $pendingRequests = AttendanceChangeRequest::with('requestedBy')
-            ->where('requested_by', $userId)
             ->where('status', 0)
             ->latest()
             ->get();
 
         $approvedRequests = AttendanceChangeRequest::with('requestedBy')
-            ->where('requested_by', $userId)
             ->where('status', 1)
             ->latest()
             ->get();
 
-        return view('request_list', compact(
+        return view('admin.request_list', compact(
             'activeTab',
             'pendingRequests',
             'approvedRequests'
@@ -75,6 +71,6 @@ class AttendanceChangeRequestController extends Controller
             ]);
         }
 
-        return redirect()->route('attendance_change_request.index');
+        return redirect()->route('admin.attendance_change_request.index');
     }
 }
