@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminAttendanceDetailController;
 use App\Http\Controllers\AdminAttendanceController;
 use App\Http\Controllers\AdminStaffListController;
 use App\Http\Controllers\AdminStaffAttendanceListController;
-use App\Http\Controllers\AdminChangeRequestController;
+use App\Http\Controllers\AdminRequestDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,6 +136,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->name('attendance_change_request.index');
 
         // 申請詳細(管理者)
-        Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminChangeRequestController::class, 'show'])->name('request_detail.show');
+        Route::get('/stamp_correction_request/approve/{attendanceChangeRequest}', [AdminRequestDetailController::class, 'show'])->name('request_detail.show');
+
+        // 申請承認（申請詳細で修正）
+        Route::post('/stamp_correction_request/approve/{attendanceChangeRequest}', [AdminRequestDetailController::class, 'approve'])
+            ->name('request_detail.approve');
     });
 });

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/request_list.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/request_list.css') }}">
 @endsection
 
 @section('content')
@@ -66,7 +66,7 @@
 
                                     <td class="request-list__detail">
                                         <a class="request-list__detail-link"
-                                            href="{{ route('admin.attendance_detail.show', ['attendance' => $req->attendance_id]) }}">
+                                            href="{{ route('admin.request_detail.show', ['attendanceChangeRequest' => $req->id]) }}">
                                             詳細
                                         </a>
                                     </td>
@@ -110,7 +110,7 @@
 
                                     <td class="request-list__detail">
                                         <a class="request-list__detail-link"
-                                            href="{{ route('attendance_detail.show', ['attendance' => $req->attendance_id]) }}">
+                                            href="{{ route('admin.request_detail.show', ['attendanceChangeRequest' => $req->id]) }}">
                                             詳細
                                         </a>
                                     </td>
