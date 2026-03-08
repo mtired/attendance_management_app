@@ -104,14 +104,22 @@ body {
 
 /* 名前だけ幅を広げる（1カラムで表示） */
 .detail-split--name {
-    grid-template-columns: minmax(160px, 1fr); /* 好きに調整OK */
+    grid-template-columns: minmax(180px, 1fr); /* 好きに調整OK */
     column-gap: 0;
     justify-items: start; /* 左寄せにしたいなら start */
 }
 
 /* 強調（名前/年/月日） */
 .detail-split__item--strong {
-    font-weight: 900;
+    font-weight: 700;
+}
+
+/* 備考だけ幅を広げる */
+.detail-split--remarks {
+    grid-template-columns: minmax(180px, 1fr);
+    column-gap: 0;
+    text-align: left;
+    justify-items: start;
 }
 
 /* ===== Time range ===== */
@@ -133,7 +141,7 @@ body {
     width: 26px;
     text-align: center;
     color: #666;
-    font-weight: 900;
+    font-weight: 700;
 }
 
 /* input */
@@ -180,6 +188,19 @@ body {
     border-radius: 4px;
     border: none;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.attendance-detail__approved {
+    width: 96px;
+    height: 34px;
+    background: #000;
+    color: #fff;
+    font-weight: 900;
+    border-radius: 4px;
+    border: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;

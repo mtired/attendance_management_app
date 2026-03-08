@@ -155,12 +155,18 @@
                             {{-- 備考 --}}
                             <tr class="detail-table__row">
                                 <th class="detail-table__th">備考</th>
-                                <td class="detail-table__td">
-                                    @if ($hasPendingRequest)
-                                        <p class="remarks-text">{{ $pendingRequest->remarks ?? '—' }}</p>
-                                    @else
-                                        <textarea class="detail-table__textarea" name="requested_remarks">{{ $attendance->remarks ?? '' }}</textarea>
-                                    @endif
+                                <td class="detail-table__td detail-table__td--split">
+                                    <div class="detail-split detail-split--remarks">
+                                        <span class="detail-split__item detail-split__item--strong">
+                                            @if ($hasPendingRequest)
+                                                {!! nl2br(e($displayRequest->remarks ?? '—')) !!}
+                                            @else
+                                                <textarea class="detail-table__textarea" name="requested_remarks">{{ $attendance->remarks ?? '' }}</textarea>
+                                            @endif
+                                        </span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
