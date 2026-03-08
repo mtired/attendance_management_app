@@ -13,8 +13,7 @@
                 勤怠詳細
             </h1>
             <form class="staff-attendance-list__form"
-                action="{{ route('admin.request_detail.approve', ['attendanceChangeRequest' => $attendance->id]) }}"
-                method="post">
+                action="{{ route('admin.request_detail.approve', $displayRequest->id) }}" method="post">
                 @csrf
                 <section class="detail-card">
                     <table class="detail-table">
@@ -109,10 +108,14 @@
                             {{-- 備考 --}}
                             <tr class="detail-table__row">
                                 <th class="detail-table__th">備考</th>
-                                <td class="detail-table__td">
-                                    <p class="remarks-text">
-                                        {{ $hasRequest ? $displayRequest->remarks ?? '—' : '—' }}
-                                    </p>
+                                <td class="detail-table__td detail-table__td--split">
+                                    <div class="detail-split detail-split--remarks">
+                                        <span class="detail-split__item detail-split__item--strong">
+                                            {!! $hasRequest ? nl2br(e($displayRequest->remarks ?: '—')) : '—' !!}
+                                        </span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -123,7 +126,7 @@
                     @if ($isPending)
                         <button class="attendance-detail__actions" type="submit">承認</button>
                     @else
-                        <button class="attendance-detail__actions" type="button" disabled>承認済み</button>
+                        <text class="attendance-detail__approved" disabled>承認済み</text>
                     @endif
                 </div>
             </form>
