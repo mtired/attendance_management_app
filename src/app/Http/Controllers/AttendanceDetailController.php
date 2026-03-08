@@ -3,73 +3,73 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
-use Illuminate\Support\Facades\Auth;
+use App\Models\AttendanceChangeRequest;
+use App\Models\BreakTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceDetailController extends Controller
 {
-    // 勤怠詳細表示
-    public function show(Attendance $attendance)
+    public function show(Request $request, Attendance $attendance)
     {
-        abort_unless($attendance->user_id === Auth::id(), 403);
-
         $user = Auth::user();
 
-        $breaks = $attendance->breaks()->orderBy('break_start_at')->get();
+        // 元の勤怠休憩
+        $breaks = BreakTime::where('attendance_id', $attendance->id)->get();
 
-        $pendingRequest = $attendance->changeRequests()
-            ->where('status', 0)
-            ->latest()
-            ->first();
+        // Bladeで使う初期値
+        $pendingRequest = null;
+        $hasPendingRequest = false;
 
-        $hasPendingRequest = (bool) $pendingRequest;
+        $targetRequest = null;
+        $isRequestDetail = false;
+        $displayBreaks = collect();
 
-        $displayBreaks = $breaks; // デフォルトは元休憩
+        // 申請一覧から来た場合（pending / approved 共通）
+        if ($request->filled('request')) {
+            $targetRequest = AttendanceChangeRequest::with('requestBreaks')
+                ->where('id', $request->query('request'))
+                ->where('attendance_id', $attendance->id)
+                ->firstOrFail();
 
-        if ($pendingRequest) {
-            $requestBreaks = $pendingRequest->requestBreaks()->get(); // attendance_request_breaks
+            $isRequestDetail = true;
 
-            // status=1（変更）: target_break_id をキーにして差し替えできるようにする
-            $changesByTargetId = $requestBreaks
-                ->where('status', 1)
-                ->keyBy('target_break_id');
-
-            // status=0（追加）: 追加分だけ抽出
-            $added = $requestBreaks
-                ->where('status', 0)
-                ->sortBy('proposed_break_start_at')
-                ->values();
-
-            // 元休憩を「変更があれば proposed に差し替え」して並べる
-            $merged = $breaks->map(function ($b) use ($changesByTargetId) {
-                $chg = $changesByTargetId->get($b->id);
-
+            $displayBreaks = $targetRequest->requestBreaks->map(function ($b) {
                 return (object) [
-                    'start_at' => $chg?->proposed_break_start_at ?? $b->break_start_at,
-                    'end_at'   => $chg?->proposed_break_end_at   ?? $b->break_end_at,
-                    'is_added' => false,
+                    'start_at' => $b->proposed_break_start_at,
+                    'end_at'   => $b->proposed_break_end_at,
                 ];
             });
+        } else {
+            // 勤怠一覧から来た場合：未承認申請があればそれを表示
+            $pendingRequest = AttendanceChangeRequest::with('requestBreaks')
+                ->where('attendance_id', $attendance->id)
+                ->where('status', AttendanceChangeRequest::STATUS_PENDING)
+                ->latest()
+                ->first();
 
-            // 末尾に追加分を足す
-            $addedRows = $added->map(function ($a) {
-                return (object) [
-                    'start_at' => $a->proposed_break_start_at,
-                    'end_at'   => $a->proposed_break_end_at,
-                    'is_added' => true,
-                ];
-            });
+            if ($pendingRequest) {
+                $hasPendingRequest = true;
+                $targetRequest = $pendingRequest;
 
-            $displayBreaks = $merged->concat($addedRows)->values();
+                $displayBreaks = $pendingRequest->requestBreaks->map(function ($b) {
+                    return (object) [
+                        'start_at' => $b->proposed_break_start_at,
+                        'end_at'   => $b->proposed_break_end_at,
+                    ];
+                });
+            }
         }
 
         return view('attendance_detail', compact(
             'attendance',
             'user',
             'breaks',
-            'hasPendingRequest',
             'pendingRequest',
-            'displayBreaks'
+            'hasPendingRequest',
+            'targetRequest',
+            'isRequestDetail',
+            'displayBreaks',
         ));
     }
 }

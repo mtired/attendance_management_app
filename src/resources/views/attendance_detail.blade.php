@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+    @php
+        $readOnly = ($isRequestDetail ?? false) || ($hasPendingRequest ?? false);
+        $displayRequest = $targetRequest ?? null;
+    @endphp
+
     <main class="attendance-detail">
         <div class="attendance-detail__inner">
 
@@ -12,9 +17,11 @@
                 <span class="attendance-detail__title-bar"></span>
                 勤怠詳細
             </h1>
+
             <form class="attendance-detail__form" action="{{ route('attendance_change_request.store') }}" method="post">
                 @csrf
                 <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
+
                 <section class="detail-card">
                     <table class="detail-table">
                         <tbody>
@@ -26,8 +33,8 @@
                                         <span class="detail-split__item detail-split__item--strong">
                                             {{ $user->name ?? Auth::user()->name }}
                                         </span>
-                                        <span></span> {{-- ← 〜分の空白 --}}
-                                        <span></span> {{-- 右側空白 --}}
+                                        <span></span>
+                                        <span></span>
                                     </div>
                                 </td>
                             </tr>
@@ -47,7 +54,7 @@
                                             <span class="detail-split__item detail-split__item--strong">
                                                 {{ $workDate->format('Y') }}年
                                             </span>
-                                            <span></span> {{-- 〜分の空白 --}}
+                                            <span></span>
                                             <span class="detail-split__item detail-split__item--strong">
                                                 {{ $workDate->format('n') }}月{{ $workDate->format('j') }}日
                                             </span>
@@ -55,20 +62,20 @@
                                     @endif
                                 </td>
                             </tr>
+
                             {{-- 出勤・退勤 --}}
                             <tr class="detail-table__row">
                                 <th class="detail-table__th">出勤・退勤</th>
                                 <td class="detail-table__td">
-                                    @if ($hasPendingRequest)
-                                        {{-- 申請後：テキスト表示（入力不可） --}}
+                                    @if ($readOnly && $displayRequest)
                                         @php
-                                            $clockIn = $pendingRequest->proposed_clock_in_at
-                                                ? \Carbon\Carbon::parse($pendingRequest->proposed_clock_in_at)->format(
+                                            $clockIn = $displayRequest->proposed_clock_in_at
+                                                ? \Carbon\Carbon::parse($displayRequest->proposed_clock_in_at)->format(
                                                     'H:i',
                                                 )
                                                 : '';
-                                            $clockOut = $pendingRequest->proposed_clock_out_at
-                                                ? \Carbon\Carbon::parse($pendingRequest->proposed_clock_out_at)->format(
+                                            $clockOut = $displayRequest->proposed_clock_out_at
+                                                ? \Carbon\Carbon::parse($displayRequest->proposed_clock_out_at)->format(
                                                     'H:i',
                                                 )
                                                 : '';
@@ -80,7 +87,6 @@
                                             <span class="time-text">{{ $clockOut ?: '—' }}</span>
                                         </div>
                                     @else
-                                        {{-- 申請前：入力可 --}}
                                         <div class="time-range">
                                             <input class="time-range__input" type="text" name="requested_clock_in_at"
                                                 value="{{ $attendance->clock_in_at ? \Carbon\Carbon::parse($attendance->clock_in_at)->format('H:i') : '' }}"
@@ -97,9 +103,8 @@
                             </tr>
 
                             {{-- 休憩 --}}
-                            @if ($hasPendingRequest)
-                                {{-- 申請後：申請内容をテキスト表示 --}}
-                                @foreach ($displayBreaks as $i => $b)
+                            @if ($readOnly && $displayRequest)
+                                @forelse ($displayBreaks as $i => $b)
                                     @php
                                         $label = $i === 0 ? '休憩' : '休憩' . ($i + 1);
                                         $s = $b->start_at ? \Carbon\Carbon::parse($b->start_at)->format('H:i') : '';
@@ -116,9 +121,19 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr class="detail-table__row">
+                                        <th class="detail-table__th">休憩</th>
+                                        <td class="detail-table__td">
+                                            <div class="time-range time-range--text">
+                                                <span class="time-text">—</span>
+                                                <span class="time-range__sep">〜</span>
+                                                <span class="time-text">—</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             @else
-                                {{-- 申請前：入力可（あなたの既存の@forでもOK） --}}
                                 @for ($i = 0; $i <= $breaks->count(); $i++)
                                     @php
                                         $break = $breaks[$i] ?? null;
@@ -156,8 +171,8 @@
                             <tr class="detail-table__row">
                                 <th class="detail-table__th">備考</th>
                                 <td class="detail-table__td">
-                                    @if ($hasPendingRequest)
-                                        <p class="remarks-text">{{ $pendingRequest->remarks ?? '—' }}</p>
+                                    @if ($readOnly && $displayRequest)
+                                        <p class="remarks-text">{{ $displayRequest->remarks ?? '—' }}</p>
                                     @else
                                         <textarea class="detail-table__textarea" name="requested_remarks">{{ $attendance->remarks ?? '' }}</textarea>
                                     @endif
@@ -166,6 +181,7 @@
                         </tbody>
                     </table>
                 </section>
+
                 {{-- テーブルの下にエラーまとめ表示 --}}
                 @if ($errors->any())
                     <div class="form-errors" role="alert" aria-live="polite">
@@ -178,7 +194,21 @@
                 @endif
 
                 <div class="attendance-detail__action-form">
-                    @if ($hasPendingRequest)
+                    @if ($isRequestDetail ?? false)
+                        @if (($displayRequest->status ?? null) === 1)
+                            <p class="form-info form-info--disabled">
+                                承認済み
+                            </p>
+                        @elseif (($displayRequest->status ?? null) === 0)
+                            <p class="form-info form-info--disabled">
+                                承認待ちのため修正はできません。
+                            </p>
+                        @else
+                            <p class="form-info form-info--disabled">
+                                この申請内容は編集できません。
+                            </p>
+                        @endif
+                    @elseif ($hasPendingRequest)
                         <p class="form-info form-info--disabled">
                             承認待ちのため修正はできません。
                         </p>

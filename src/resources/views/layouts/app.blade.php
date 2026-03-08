@@ -53,7 +53,7 @@
                     @auth('admin')
                         <a href="{{ route('admin.attendance_list.index') }}" class="header__nav-text">勤怠一覧</a>
                         <a href="{{ route('admin.staff_list.index') }}" class="header__nav-text">スタッフ一覧</a>
-                        <a href="/stamp_correction_request/list" class="header__nav-text">申請一覧</a>
+                        <a href="{{ route('admin.attendance_change_request.index') }}" class="header__nav-text">申請一覧</a>
                         <form action="{{ route('admin.logout') }}" method="post">
                             @csrf
                             <button class="header__nav-text" type="submit">

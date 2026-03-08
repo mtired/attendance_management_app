@@ -15,12 +15,16 @@ class AttendanceChangeRequestController extends Controller
     {
         $activeTab = $request->query('tab', 'pending');
 
+        $userId = Auth::id();
+
         $pendingRequests = AttendanceChangeRequest::with('requestedBy')
+            ->where('requested_by', $userId)
             ->where('status', 0)
             ->latest()
             ->get();
 
         $approvedRequests = AttendanceChangeRequest::with('requestedBy')
+            ->where('requested_by', $userId)
             ->where('status', 1)
             ->latest()
             ->get();

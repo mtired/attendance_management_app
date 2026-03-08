@@ -11,10 +11,8 @@ class AdminAttendanceDetailController extends Controller
     // 勤怠詳細表示
     public function show(Attendance $attendance)
     {
-        // user を確実に読み込む（N+1回避にもなる）
         $attendance->load('user');
 
-        // ここが重要：user_id じゃなくて Userモデルを渡す
         $user = $attendance->user;
 
         $breaks = $attendance->breaks()->orderBy('break_start_at')->get();
@@ -61,7 +59,6 @@ class AdminAttendanceDetailController extends Controller
             $displayBreaks = $merged->concat($addedRows)->values();
         }
 
-        // 管理者用なら view パスも admin 側にするのが普通（あなたのBladeに合わせて調整）
         return view('admin.attendance_detail', compact(
             'attendance',
             'user',
