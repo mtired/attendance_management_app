@@ -51,9 +51,9 @@ body {
 }
 
 /* =========================
-  Tablet (768–850px)
+  Tablet (768px)
 ========================= */
-@media (min-width: 768px) and (max-width: 850px) {
+@media (min-width: 768px) {
     .header {
         height: 80px;
     }
@@ -69,20 +69,6 @@ body {
         height: 18px;
     }
 
-    /* 検索：中央で可変 */
-    .header__search {
-        flex: 1 1 auto;
-        justify-content: center;
-        min-width: 0;
-    }
-
-    .header__search-input {
-        width: 100%;
-        max-width: 360px;
-        height: 44px;
-        font-size: 18px;
-    }
-
     /* 右ナビ */
     .header__nav {
         gap: 12px;
@@ -90,12 +76,6 @@ body {
     }
 
     .header__nav-text {
-        font-size: 18px;
-    }
-
-    .header__sell-button {
-        width: 88px;
-        height: 44px;
         font-size: 18px;
     }
 
