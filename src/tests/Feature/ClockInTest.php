@@ -47,8 +47,8 @@ class ClockInTest extends TestCase
         // 処理後、ステータスが「勤務中」になることを確認
         $afterResponse = $this->actingAs($user)->get(route('attendance.index'));
         $afterResponse->assertStatus(200);
-        $afterResponse->assertViewHas('status', '勤務中');
-        $afterResponse->assertSee('勤務中');
+        $afterResponse->assertViewHas('status', '出勤中');
+        $afterResponse->assertSee('出勤中');
 
         Carbon::setTestNow();
     }

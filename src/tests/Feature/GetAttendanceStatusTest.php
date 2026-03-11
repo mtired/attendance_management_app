@@ -55,8 +55,8 @@ class GetAttendanceStatusTest extends TestCase
         $response = $this->actingAs($user)->get(route('attendance.index'));
 
         $response->assertStatus(200);
-        $response->assertViewHas('status', '勤務中');
-        $response->assertSee('勤務中');
+        $response->assertViewHas('status', '出勤中');
+        $response->assertSee('出勤中');
 
         Carbon::setTestNow();
     }
