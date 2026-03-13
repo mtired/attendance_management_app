@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AttendanceChangeRequestStoreRequest; // 既存Requestを流用する場合
+use App\Http\Requests\AdminAttendanceChangeRequestStoreRequest; // 既存Requestを流用する場合
 use App\Models\Attendance;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +13,7 @@ class AdminAttendanceController extends Controller
      * 管理者：勤怠を直接更新（申請は作らない）
      * 既存休憩は「開始・終了が両方空欄なら削除」
      */
-    public function update(AttendanceChangeRequestStoreRequest $request)
+    public function update(AdminAttendanceChangeRequestStoreRequest $request)
     {
         $validated = $request->validated();
 
