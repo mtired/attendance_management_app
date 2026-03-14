@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-class AttendanceChangeRequestStoreRequest extends FormRequest
+class AdminAttendanceChangeRequestStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -50,7 +50,7 @@ class AttendanceChangeRequestStoreRequest extends FormRequest
 
             // 出勤時間が退勤時間より後になっている場合，および退勤時間が出勤時間より後になっている場合
             if ($inMin !== null && $outMin !== null && $inMin > $outMin) {
-                $v->errors()->add('requested_clock_in_at', '出勤時間が不適切な値です');
+                $v->errors()->add('requested_clock_in_at', '出勤時間もしくは退勤時間が不適切な値です');
             }
 
             $breaks = $this->input('requested_breaks', []);

@@ -25,7 +25,7 @@
                             出勤
                         </button>
                     </form>
-                @elseif($status === '勤務中')
+                @elseif($status === '出勤中')
                     <form action="{{ route('attendance.clock_out') }}" method="post" class="attendance__form">
                         @csrf
                         <button type="submit" class="attendance__btn attendance__btn--black">

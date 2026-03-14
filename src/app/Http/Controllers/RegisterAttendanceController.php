@@ -34,7 +34,7 @@ class RegisterAttendanceController extends Controller
             } elseif ($isOnBreak) {
                 $status = '休憩中';
             } elseif ($attendance->clock_in_at) {
-                $status = '勤務中';
+                $status = '出勤中';
             }
         }
         $serverNow = now(); // サーバー時刻（JST）
