@@ -39,7 +39,7 @@
     display: flex;
     gap: 42px;
     align-items: flex-end;
-    padding-left: 72px; /* 画像っぽい位置寄せ */
+    padding-left: 72px;
     margin-top: 8px;
 }
 
@@ -189,8 +189,8 @@
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
     .request-list__tabs {
-        padding-left: 0;
-        justify-content: center;
+        padding-left: 62px;
+        justify-content: left;
     }
 
     .request-list__table-wrap {
