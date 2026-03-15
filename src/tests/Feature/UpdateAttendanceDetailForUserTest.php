@@ -22,7 +22,6 @@ class UpdateAttendanceDetailForUserTest extends TestCase
             'work_date' => Carbon::create(2026, 3, 10),
             'clock_in_at' => Carbon::create(2026, 3, 10, 9, 0, 0),
             'clock_out_at' => Carbon::create(2026, 3, 10, 18, 0, 0),
-            'remarks' => '通常勤務',
         ]);
 
         BreakTime::factory()->create([
@@ -220,7 +219,6 @@ class UpdateAttendanceDetailForUserTest extends TestCase
             'work_date' => Carbon::create(2026, 3, 11),
             'clock_in_at' => Carbon::create(2026, 3, 11, 9, 0, 0),
             'clock_out_at' => Carbon::create(2026, 3, 11, 18, 0, 0),
-            'remarks' => '通常勤務',
         ]);
 
         $otherAttendance = Attendance::factory()->create([
@@ -228,7 +226,6 @@ class UpdateAttendanceDetailForUserTest extends TestCase
             'work_date' => Carbon::create(2026, 3, 12),
             'clock_in_at' => Carbon::create(2026, 3, 12, 9, 0, 0),
             'clock_out_at' => Carbon::create(2026, 3, 12, 18, 0, 0),
-            'remarks' => '通常勤務',
         ]);
 
         AttendanceChangeRequest::create([
@@ -304,7 +301,6 @@ class UpdateAttendanceDetailForUserTest extends TestCase
         $this->assertSame(1, $request->status);
         $this->assertSame('08:30', $attendance->clock_in_at->format('H:i'));
         $this->assertSame('17:30', $attendance->clock_out_at->format('H:i'));
-        $this->assertSame('承認対象申請', $attendance->remarks);
 
         // 一般ユーザーの承認済み一覧
         $userApprovedResponse = $this->actingAs($user)

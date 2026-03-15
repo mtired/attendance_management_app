@@ -25,7 +25,6 @@ class AdminAttendanceChangeRequestApprovalTest extends TestCase
             'work_date' => $workDate,
             'clock_in_at' => $workDate->copy()->setTime(9, 0),
             'clock_out_at' => $workDate->copy()->setTime(18, 0),
-            'remarks' => '通常勤務',
         ]);
 
         BreakTime::factory()->create([
@@ -291,7 +290,6 @@ class AdminAttendanceChangeRequestApprovalTest extends TestCase
         $this->assertSame(AttendanceChangeRequest::STATUS_APPROVED, $request->status);
         $this->assertSame('08:30', $attendance->clock_in_at->format('H:i'));
         $this->assertSame('17:30', $attendance->clock_out_at->format('H:i'));
-        $this->assertSame('承認テスト申請', $attendance->remarks);
 
         // 既存休憩が更新される
         $this->assertSame('12:15', $originalBreak->break_start_at->format('H:i'));

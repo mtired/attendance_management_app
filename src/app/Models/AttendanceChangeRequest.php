@@ -24,14 +24,11 @@ class AttendanceChangeRequest extends Model
         'proposed_clock_out_at',
         'remarks',
         'status',
-        'reviewed_by',
-        'reviewed_at',
     ];
 
     protected $casts = [
         'proposed_clock_in_at'  => 'datetime',
         'proposed_clock_out_at' => 'datetime',
-        'reviewed_at'           => 'datetime',
     ];
 
     // status: 0=承認待ち, 1=承認済み
@@ -46,11 +43,6 @@ class AttendanceChangeRequest extends Model
     public function requestedBy()
     {
         return $this->belongsTo(User::class, 'requested_by');
-    }
-
-    public function reviewer()
-    {
-        return $this->belongsTo(User::class, 'reviewed_by');
     }
 
     public function requestBreaks()

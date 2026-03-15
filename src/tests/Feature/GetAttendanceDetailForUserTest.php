@@ -21,7 +21,6 @@ class GetAttendanceDetailForUserTest extends TestCase
             'work_date' => Carbon::create(2026, 3, 10),
             'clock_in_at' => Carbon::create(2026, 3, 10, 9, 0, 0),
             'clock_out_at' => Carbon::create(2026, 3, 10, 18, 0, 0),
-            'remarks' => '通常勤務',
         ]);
 
         BreakTime::factory()->create([
