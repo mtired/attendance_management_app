@@ -159,7 +159,7 @@
                                     <div class="detail-split detail-split--remarks">
                                         <span class="detail-split__item detail-split__item--strong">
                                             @if ($hasPendingRequest)
-                                                {!! nl2br(e($displayRequest->remarks ?? '—')) !!}
+                                                {!! nl2br(e($pendingRequest->remarks ?? '—')) !!}
                                             @else
                                                 <textarea class="detail-table__textarea" name="requested_remarks">{{ $attendance->remarks ?? '' }}</textarea>
                                             @endif

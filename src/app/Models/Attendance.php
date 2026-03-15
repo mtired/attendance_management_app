@@ -22,7 +22,6 @@ class Attendance extends Model
         'work_date',
         'clock_in_at',
         'clock_out_at',
-        'remarks',
     ];
 
     protected $casts = [
@@ -45,5 +44,4 @@ class Attendance extends Model
     {
         return $this->hasMany(AttendanceChangeRequest::class);
     }
-
 }

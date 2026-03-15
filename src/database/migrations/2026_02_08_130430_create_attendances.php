@@ -17,7 +17,6 @@ return new class extends Migration
             $table->date('work_date');
             $table->dateTime('clock_in_at')->nullable();
             $table->dateTime('clock_out_at')->nullable();
-            $table->string('remarks')->nullable();
             $table->timestamps();
 
             // 勤務記録は一日ずつ入れられるようにする
