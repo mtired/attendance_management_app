@@ -7,18 +7,16 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class AdminStaffAttendanceListController extends Controller
 {
     /**
      * 勤怠一覧（月表示）
-     * /attendance?month=2023-06
+     * /attendance?month=20XX-XX
      */
     public function index(Request $request, User $user)
     {
-        // クエリからmonth取得
+        // 月取得
         $month = $request->query('month');
 
         // monthがあればその月、なければ今月とする
@@ -78,7 +76,7 @@ class AdminStaffAttendanceListController extends Controller
         return response()->streamDownload(function () use ($user, $baseDate, $rows) {
             $out = fopen('php://output', 'w');
 
-            // Excelで文字化け対策（不要なら削除OK）
+            // Excelで文字化け対策
             fwrite($out, "\xEF\xBB\xBF");
 
             // ヘッダー

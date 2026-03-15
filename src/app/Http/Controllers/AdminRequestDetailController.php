@@ -10,10 +10,9 @@ use App\Models\BreakTime;
 
 class AdminRequestDetailController extends Controller
 {
-    // 申請詳細表示（承認済み/承認待ちどちらも「その申請」を表示）
+    // 申請詳細表示（承認済み/承認待ちをタブに分けて表示）
     public function show(AttendanceChangeRequest $attendanceChangeRequest)
     {
-        // 必要な関連をまとめて読む
         $attendanceChangeRequest->load([
             'requestedBy',
             'requestBreaks',
@@ -66,7 +65,7 @@ class AdminRequestDetailController extends Controller
         // 表示用休憩（元＋追加）
         $displayBreaks = $merged->concat($addedRows)->values();
 
-        // ★同じ start/end が二重に入っていたら表示で潰す（保険）
+        // 同じ start/end が二重に入っていたら表示で潰す
         $displayBreaks = $displayBreaks
             ->unique(fn($b) => ($b->start_at ?? '') . '|' . ($b->end_at ?? ''))
             ->values();
@@ -120,7 +119,7 @@ class AdminRequestDetailController extends Controller
                 ]);
             }
 
-            // 追加（status=0）：新規作成（重複があれば作らない保険付き）
+            // 追加（status=0）：新規作成
             foreach ($requestBreaks->where('status', 0) as $rb) {
 
                 $exists = $attendance->breaks()

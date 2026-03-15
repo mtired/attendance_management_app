@@ -61,7 +61,6 @@ class AttendanceChangeRequestController extends Controller
         foreach (($validated['requested_breaks'] ?? []) as $b) {
             if (empty($b['start']) && empty($b['end'])) continue;
 
-            // start/end 片方だけは Request 側で弾く想定
             $start = "{$date} {$b['start']}:00";
             $end   = "{$date} {$b['end']}:00";
 

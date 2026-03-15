@@ -12,13 +12,13 @@ class AttendanceListController extends Controller
 {
     /**
      * 勤怠一覧（月表示）
-     * /attendance?month=2023-06
+     * /attendance?month=20XX-XX
      */
     public function index(Request $request)
     {
         $user = Auth::user();
 
-        // クエリからmonth取得
+        // 月取得
         $month = $request->query('month');
 
         // monthがあればその月、なければ今月とする

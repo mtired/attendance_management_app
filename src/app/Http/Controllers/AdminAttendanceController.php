@@ -11,7 +11,6 @@ class AdminAttendanceController extends Controller
 {
     /**
      * 管理者：勤怠を直接更新（申請は作らない）
-     * 既存休憩は「開始・終了が両方空欄なら削除」
      */
     public function update(AdminAttendanceChangeRequestStoreRequest $request)
     {
@@ -23,9 +22,7 @@ class AdminAttendanceController extends Controller
 
         DB::transaction(function () use ($attendance, $validated, $date) {
 
-            // =========================
             // 出勤・退勤・備考を更新
-            // =========================
             $clockIn = !empty($validated['requested_clock_in_at'])
                 ? "{$date} {$validated['requested_clock_in_at']}:00"
                 : null;
@@ -40,9 +37,7 @@ class AdminAttendanceController extends Controller
                 'remarks'      => '',
             ]);
 
-            // =========================
-            // 休憩を更新（更新/追加/削除）
-            // =========================
+            // 休憩を更新（更新/追加）
             foreach (($validated['requested_breaks'] ?? []) as $b) {
                 $targetBreakId = $b['target_break_id'] ?? null;
                 $startStr = $b['start'] ?? null;
@@ -52,7 +47,6 @@ class AdminAttendanceController extends Controller
 
                 // 既存休憩
                 if ($targetBreakId) {
-                    // 両方空欄 → 削除
                     if (!$hasAny) {
                         $attendance->breaks()->whereKey($targetBreakId)->delete();
                         continue;
@@ -66,7 +60,7 @@ class AdminAttendanceController extends Controller
                     continue;
                 }
 
-                // 新規休憩（targetなし）
+                // 新規休憩
                 if ($hasAny) {
                     $attendance->breaks()->create([
                         'break_start_at' => "{$date} {$startStr}:00",
