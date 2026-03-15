@@ -61,13 +61,6 @@
                             </button>
                         </form>
                     @endauth
-
-                    {{-- どっちも未ログイン --}}
-                    @guest('web')
-                        @guest('admin')
-                            <a href="/login" class="header__nav-text">ログイン</a>
-                        @endguest
-                    @endguest
                 </nav>
             @endunless
         </div>

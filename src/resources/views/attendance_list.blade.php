@@ -15,16 +15,20 @@
             {{-- 月移動 --}}
             <div class="month-nav">
                 <a class="month-nav__side" href="{{ route('attendance_list.index', ['month' => $prevMonth]) }}">
-                    <span class="month-nav__arrow">←</span> 前月
+                    <span class="month-nav__arrow"><img src="{{ asset('images/image2.png') }}" alt="prev"
+                            class="month-nav__arrow--prev" /></span>
+                    前月
                 </a>
 
                 <div class="month-nav__center">
-                    <span class="month-nav__icon" aria-hidden="true">🗓</span>
+                    <span class="month-nav__icon" aria-hidden="true"><img src="{{ asset('images/image.png') }}"
+                            alt="calender" class="month-nav__logo" /></span>
                     <span class="month-nav__month">{{ $currentMonth }}</span>
                 </div>
 
                 <a class="month-nav__side" href="{{ route('attendance_list.index', ['month' => $nextMonth]) }}">
-                    翌月 <span class="month-nav__arrow">→</span>
+                    翌月 <span class="month-nav__arrow"><img src="{{ asset('images/image2.png') }}" alt="next"
+                            class="month-nav__arrow--next" /></span>
                 </a>
             </div>
 
@@ -33,7 +37,7 @@
                 <table class="attendance-table__table">
                     <thead class="attendance-table__head">
                         <tr class="attendance-table__row">
-                            <th class="attendance-table__th">日付</th>
+                            <th class="attendance-table__th attendance-table__th--date">日付</th>
                             <th class="attendance-table__th">出勤</th>
                             <th class="attendance-table__th">退勤</th>
                             <th class="attendance-table__th">休憩</th>
@@ -45,7 +49,7 @@
                     <tbody class="attendance-table__body">
                         @forelse ($attendances as $a)
                             <tr class="attendance-table__row">
-                                <td class="attendance-table__td">
+                                <td class="attendance-table__td attendance-table__td--date">
                                     {{ $a->work_date_label ?? $a->work_date }}
                                 </td>
                                 <td class="attendance-table__td">{{ $a->clock_in ?? '' }}</td>

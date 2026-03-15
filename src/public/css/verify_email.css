@@ -19,7 +19,7 @@
     box-sizing: border-box;
 }
 
-/* 完了通知 text */
+/* 完了通知 */
 .verify-email__message {
     width: 720px;
     min-height: 58px;
@@ -32,7 +32,7 @@
     color: #000000;
 }
 
-/* 認証確認ボタン button */
+/* 認証確認ボタン */
 .verify-email__button {
     width: 257px;
     height: 69px;
@@ -82,9 +82,9 @@
 }
 
 /* ===============================
-   タブレット（768–850px）
+   タブレット（768px）
 ================================*/
-@media (min-width: 768px) and (max-width: 850px) {
+@media (min-width: 768px) {
     .verify-email__inner {
         padding-top: 200px;
     }

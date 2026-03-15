@@ -46,7 +46,7 @@
 
 .attendance__actions {
     display: flex;
-    gap: 44px;
+    gap: 80px;
     align-items: center;
     justify-content: center;
 }

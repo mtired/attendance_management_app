@@ -207,7 +207,7 @@
                             </p>
                         @elseif (($displayRequest->status ?? null) === 0)
                             <p class="form-info form-info--disabled">
-                                承認待ちのため修正はできません。
+                                *承認待ちのため修正はできません。
                             </p>
                         @else
                             <p class="form-info form-info--disabled">
@@ -216,7 +216,7 @@
                         @endif
                     @elseif ($hasPendingRequest)
                         <p class="form-info form-info--disabled">
-                            承認待ちのため修正はできません。
+                            *承認待ちのため修正はできません。
                         </p>
                     @else
                         <button class="attendance-detail__actions" type="submit">

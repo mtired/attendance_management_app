@@ -9,24 +9,15 @@ body {
     margin: 0;
     background: #f3f3f3;
     color: #111;
-    font-family:
-        system-ui,
-        -apple-system,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        "Noto Sans JP",
-        sans-serif;
 }
 
 /* ===== Page ===== */
 .attendance-detail {
-    padding: 44px 16px 90px;
+    padding: 50px 16px 90px;
 }
 
 .attendance-detail__inner {
-    max-width: 840px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -34,22 +25,21 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 22px;
-    font-weight: 900;
+    font-size: 30px;
+    font-weight: 700;
     margin: 0 0 18px;
 }
 
 .attendance-detail__title-bar {
-    width: 4px;
-    height: 22px;
-    background: #000;
-    border-radius: 2px;
+    border: 4px solid #000;
+    height: 32px;
 }
 
 /* ===== Card/Table ===== */
 .detail-card {
+    margin-top: 60px;
     background: #fff;
-    border: 1px solid #e2e2e2;
+    border: 1px solid #e1e1e1;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -60,7 +50,7 @@ body {
 }
 
 .detail-table__row {
-    border-top: 1px solid #ededed;
+    border-top: 2px solid #e1e1e1;
 }
 
 .detail-table__row:first-child {
@@ -69,49 +59,52 @@ body {
 
 .detail-table__th,
 .detail-table__td {
-    padding: 16px 18px;
+    padding: 22px 18px;
     font-size: 13px;
 }
 
 /* 左列（ラベル列） */
 .detail-table__th {
     width: 26%;
-    min-width: 160px;
-    color: #666;
-    font-weight: 800;
-    text-align: center;
+    color: #737373;
+    font-weight: 700;
+    text-align: left;
+    padding-left: 50px;
 }
 
 /* 右列（値列） */
 .detail-table__td {
-    width: 74%;
-    color: #222;
+    width: 100%;
+    color: #000000;
     font-weight: 700;
+    padding-left: 50px;
+    text-align: left;
+    letter-spacing: 15%;
 }
 
 .detail-table__td--split {
-    text-align: center;
+    text-align: left;
 }
 
 /* 名前・日付の“まとまり” */
 .detail-split {
     display: inline-grid;
     grid-template-columns: 64px 26px 64px; /* 左 / 〜幅 / 右 */
-    column-gap: 22px;
+    column-gap: 50px;
     align-items: center;
     justify-items: center;
 }
 
-/* 名前だけ幅を広げる（1カラムで表示） */
+/* 名前だけ幅を広げる */
 .detail-split--name {
-    grid-template-columns: minmax(160px, 1fr); /* 好きに調整OK */
+    grid-template-columns: minmax(180px, 1fr);
     column-gap: 0;
-    justify-items: start; /* 左寄せにしたいなら start */
+    justify-items: start;
 }
 
 /* 強調（名前/年/月日） */
 .detail-split__item--strong {
-    font-weight: 900;
+    font-weight: 700;
 }
 
 /* 備考だけ幅を広げる */
@@ -120,19 +113,16 @@ body {
     column-gap: 0;
     text-align: left;
     justify-items: start;
+    letter-spacing: 15%;
 }
 
 /* ===== Time range ===== */
 .time-range {
     display: inline-grid;
     grid-template-columns: 64px 26px 64px; /* 左 / 〜 / 右 */
-    column-gap: 22px;
+    column-gap: 50px;
     align-items: center;
     justify-items: center;
-}
-
-.detail-table__td {
-    text-align: center;
 }
 
 /* 〜 の列幅を固定 */
@@ -159,7 +149,7 @@ body {
 
 /* ===== Memo ===== */
 .detail-table__textarea {
-    width: 220px;
+    width: 250px;
     height: 52px;
     resize: none;
     border: 1px solid #dcdcdc;
@@ -180,17 +170,19 @@ body {
 }
 
 .attendance-detail__actions {
-    width: 96px;
-    height: 34px;
+    width: 130px;
+    height: 50px;
     background: #000;
     color: #fff;
-    font-weight: 900;
-    border-radius: 4px;
+    font-weight: 700;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
+    font-size: 22px;
     justify-content: center;
+    letter-spacing: 15%;
 }
 
 .btn-edit:hover {
@@ -202,7 +194,10 @@ body {
 }
 
 .form-info--disabled {
-    color: #9f3a38;
+    color: #ff000080;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 15%;
 }
 
 .form-errors {
@@ -223,7 +218,9 @@ body {
     line-height: 1.6;
 }
 
-/* ===== Responsive ===== */
+/* ===============================
+   タブレット（768px）
+================================*/
 @media (max-width: 768px) {
     .attendance-detail__inner {
         max-width: 100%;

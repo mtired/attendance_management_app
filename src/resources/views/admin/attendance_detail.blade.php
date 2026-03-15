@@ -186,7 +186,7 @@
                 <div class="attendance-detail__action-form">
                     @if ($hasPendingRequest)
                         <p class="form-info form-info--disabled">
-                            承認待ちのため修正はできません。
+                            *承認待ちのため修正はできません。
                         </p>
                     @else
                         <button class="attendance-detail__actions" type="submit">
