@@ -16,10 +16,10 @@ class AttendanceSeeder extends Seeder
 
         foreach ($users as $user) {
 
-            // 30日分作成
-            for ($i = 0; $i < 30; $i++) {
+            // 31日分作成
+            for ($i = 0; $i < 32; $i++) {
 
-                $workDate = Carbon::today()->subDays($i);
+                $workDate = Carbon::yesterday()->subDays($i);
 
                 // 出勤時間（8:45〜9:15）
                 $clockIn = (clone $workDate)
