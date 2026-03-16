@@ -19,6 +19,7 @@ class AdminAttendanceListController extends Controller
         $prevMonth = $targetDate->copy()->subDay()->format('Y-m-d');
         $nextMonth = $targetDate->copy()->addDay()->format('Y-m-d');
         $currentMonth = $targetDate->format('Y/m/d');
+        $currentMonthTitle = $targetDate->format('Y年n月j日');
 
         $attendances = Attendance::with(['user', 'breaks'])
             ->whereDate('work_date', $targetDate->toDateString())
@@ -82,6 +83,7 @@ class AdminAttendanceListController extends Controller
             'prevMonth',
             'currentMonth',
             'nextMonth',
+            'currentMonthTitle',
         ));
     }
 }

@@ -9,7 +9,7 @@
     <div class="attendance-index__inner">
         <h1 class="attendance-index__title">
             <span class="attendance-index__title-bar"></span>
-            {{ $currentMonth }}の勤怠
+            {{ $currentMonthTitle }}の勤怠
         </h1>
 
         {{-- 日付移動 --}}
