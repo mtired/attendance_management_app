@@ -9,7 +9,7 @@ docker compose(v2)を使用してください
 ```bash
 git clone https://github.com/mtired/attendance_management_app.git
 
-cd attendance_management_app.
+cd attendance_management_app
 docker compose up -d --build
 
 docker compose exec php bash
