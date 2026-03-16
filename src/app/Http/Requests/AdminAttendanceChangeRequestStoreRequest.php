@@ -17,14 +17,14 @@ class AdminAttendanceChangeRequestStoreRequest extends FormRequest
         return [
             'attendance_id' => ['required', 'integer', 'exists:attendances,id'],
 
-            'requested_clock_in_at'  => ['nullable', 'regex:/^([0-1]?\d|2[0-3]):[0-5]\d$/'],
-            'requested_clock_out_at' => ['nullable', 'regex:/^([0-1]?\d|2[0-3]):[0-5]\d$/'],
+            'requested_clock_in_at'  => ['required', 'regex:/^([0-1]?\d|2[0-3]):[0-5]\d$/'],
+            'requested_clock_out_at' => ['required', 'regex:/^([0-1]?\d|2[0-3]):[0-5]\d$/'],
             'requested_breaks.*.start' => ['nullable', 'regex:/^([0-1]?\d|2[0-3]):[0-5]\d$/'],
             'requested_breaks.*.end'   => ['nullable', 'regex:/^([0-1]?\d|2[0-3]):[0-5]\d$/'],
             'requested_breaks' => ['array'],
             'requested_breaks.*.target_break_id' => ['nullable', 'integer'],
 
-            'requested_remarks' => ['required', 'string', 'max:1000'],
+            'requested_remarks' => ['required', 'string', 'max:255'],
         ];
     }
 

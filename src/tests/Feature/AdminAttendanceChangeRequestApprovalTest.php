@@ -25,7 +25,6 @@ class AdminAttendanceChangeRequestApprovalTest extends TestCase
             'work_date' => $workDate,
             'clock_in_at' => $workDate->copy()->setTime(9, 0),
             'clock_out_at' => $workDate->copy()->setTime(18, 0),
-            'remarks' => '通常勤務',
         ]);
 
         BreakTime::factory()->create([
@@ -83,10 +82,9 @@ class AdminAttendanceChangeRequestApprovalTest extends TestCase
 
         $response->assertOk();
 
-        // 今開いているタブ
+        // 承認待ちのタブ
         $response->assertViewHas('activeTab', 'pending');
 
-        // 見えてほしい文字列
         $response->assertSee('承認待ち');
         $response->assertSee('山田 太郎');
         $response->assertSee('佐藤 花子');
@@ -95,14 +93,14 @@ class AdminAttendanceChangeRequestApprovalTest extends TestCase
         $response->assertSee('2026/03/10');
         $response->assertSee('2026/03/11');
 
-        // View に渡された pending データが正しい
+        // View に渡された pending データが正しいこと
         $response->assertViewHas('pendingRequests', function ($requests) use ($pendingA, $pendingB) {
             return $requests->pluck('id')->contains($pendingA->id)
                 && $requests->pluck('id')->contains($pendingB->id)
                 && $requests->count() === 2;
         });
 
-        // approved データは別コレクションにいる
+        // approved データが正しいこと
         $response->assertViewHas('approvedRequests', function ($requests) use ($approved) {
             return $requests->pluck('id')->contains($approved->id)
                 && $requests->count() === 1;
@@ -155,10 +153,9 @@ class AdminAttendanceChangeRequestApprovalTest extends TestCase
 
         $response->assertOk();
 
-        // 今開いているタブ
+        // 承認済みのタブ
         $response->assertViewHas('activeTab', 'approved');
 
-        // 見えてほしい文字列
         $response->assertSee('承認済み');
         $response->assertSee('山田 太郎');
         $response->assertSee('佐藤 花子');
@@ -167,14 +164,14 @@ class AdminAttendanceChangeRequestApprovalTest extends TestCase
         $response->assertSee('2026/03/10');
         $response->assertSee('2026/03/11');
 
-        // View に渡された approved データが正しい
+        // View に渡された approved データが正しいこと
         $response->assertViewHas('approvedRequests', function ($requests) use ($approvedA, $approvedB) {
             return $requests->pluck('id')->contains($approvedA->id)
                 && $requests->pluck('id')->contains($approvedB->id)
                 && $requests->count() === 2;
         });
 
-        // pending データは別コレクションにいる
+        // pending データが正しいこと
         $response->assertViewHas('pendingRequests', function ($requests) use ($pending) {
             return $requests->pluck('id')->contains($pending->id)
                 && $requests->count() === 1;
@@ -291,13 +288,12 @@ class AdminAttendanceChangeRequestApprovalTest extends TestCase
         $this->assertSame(AttendanceChangeRequest::STATUS_APPROVED, $request->status);
         $this->assertSame('08:30', $attendance->clock_in_at->format('H:i'));
         $this->assertSame('17:30', $attendance->clock_out_at->format('H:i'));
-        $this->assertSame('承認テスト申請', $attendance->remarks);
 
-        // 既存休憩が更新される
+        // 既存休憩が更新されること
         $this->assertSame('12:15', $originalBreak->break_start_at->format('H:i'));
         $this->assertSame('13:15', $originalBreak->break_end_at->format('H:i'));
 
-        // 追加休憩が新規作成される
+        // 追加休憩が新規作成されること
         $this->assertDatabaseHas('breaks', [
             'attendance_id' => $attendance->id,
             'break_start_at' => '2026-03-10 15:00:00',

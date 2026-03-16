@@ -159,7 +159,7 @@
                                     <div class="detail-split detail-split--remarks">
                                         <span class="detail-split__item detail-split__item--strong">
                                             @if ($hasPendingRequest)
-                                                {!! nl2br(e($displayRequest->remarks ?? '—')) !!}
+                                                {!! nl2br(e($pendingRequest->remarks ?? '—')) !!}
                                             @else
                                                 <textarea class="detail-table__textarea" name="requested_remarks">{{ $attendance->remarks ?? '' }}</textarea>
                                             @endif
@@ -186,7 +186,7 @@
                 <div class="attendance-detail__action-form">
                     @if ($hasPendingRequest)
                         <p class="form-info form-info--disabled">
-                            承認待ちのため修正はできません。
+                            *承認待ちのため修正はできません。
                         </p>
                     @else
                         <button class="attendance-detail__actions" type="submit">

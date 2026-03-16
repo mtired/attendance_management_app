@@ -9,7 +9,7 @@
     <div class="attendance-index__inner">
         <h1 class="attendance-index__title">
             <span class="attendance-index__title-bar"></span>
-            勤怠一覧
+            {{ $currentMonthTitle }}の勤怠
         </h1>
 
         {{-- 日付移動 --}}
@@ -19,7 +19,8 @@
             </a>
 
             <div class="month-nav__center">
-                <span class="month-nav__icon" aria-hidden="true">🗓</span>
+                <span class="month-nav__icon" aria-hidden="true"><img src="{{ asset('images/image.png') }}"
+                            alt="calender" class="month-nav__logo" /></span>
                 <span class="month-nav__month">{{ $currentMonth }}</span>
             </div>
 

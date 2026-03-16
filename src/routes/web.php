@@ -55,16 +55,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('attendance.index');
 
     // 打刻処理
-    Route::post('/attendances/clock-in', [RegisterAttendanceController::class, 'clockIn'])
+    Route::post('/attendance/clock-in', [RegisterAttendanceController::class, 'clockIn'])
         ->name('attendance.clock_in');
 
-    Route::post('/attendances/clock-out', [RegisterAttendanceController::class, 'clockOut'])
+    Route::post('/attendance/clock-out', [RegisterAttendanceController::class, 'clockOut'])
         ->name('attendance.clock_out');
 
-    Route::post('/attendances/break-start', [RegisterAttendanceController::class, 'breakStart'])
+    Route::post('/attendance/break-start', [RegisterAttendanceController::class, 'breakStart'])
         ->name('attendance.break_start');
 
-    Route::post('/attendances/break-end', [RegisterAttendanceController::class, 'breakEnd'])
+    Route::post('/attendance/break-end', [RegisterAttendanceController::class, 'breakEnd'])
         ->name('attendance.break_end');
 
     // 勤怠一覧画面表示
@@ -87,7 +87,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 */
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    // 未ログインの管理者だけが見れる
     Route::middleware('guest:admin')->group(function () {
 
         Route::get('/login', [AdminFortifySessionController::class, 'index'])

@@ -19,8 +19,6 @@ return new class extends Migration
             $table->dateTime('proposed_clock_out_at');
             $table->string('remarks', 255)->nullable();
             $table->tinyInteger('status')->default(0)->comment('0:承認待ち, 1:承認済み');
-            $table->foreignId('reviewed_by')->nullable()->constrained('users')->restrictOnDelete();
-            $table->dateTime('reviewed_at')->nullable();
             $table->timestamps();
         });
     }

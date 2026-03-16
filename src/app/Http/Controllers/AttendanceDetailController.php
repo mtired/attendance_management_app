@@ -25,7 +25,7 @@ class AttendanceDetailController extends Controller
         $isRequestDetail = false;
         $displayBreaks = collect();
 
-        // 申請一覧から来た場合（pending / approved 共通）
+        // 申請一覧から来た場合：（pending / approved 共通）
         if ($request->filled('request')) {
             $targetRequest = AttendanceChangeRequest::with('requestBreaks')
                 ->where('id', $request->query('request'))
@@ -41,7 +41,7 @@ class AttendanceDetailController extends Controller
                 ];
             });
         } else {
-            // 勤怠一覧から来た場合：未承認申請があればそれを表示
+            // 勤怠一覧から来た場合：未承認申請があればその申請を表示
             $pendingRequest = AttendanceChangeRequest::with('requestBreaks')
                 ->where('attendance_id', $attendance->id)
                 ->where('status', AttendanceChangeRequest::STATUS_PENDING)

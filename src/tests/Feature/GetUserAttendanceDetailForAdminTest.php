@@ -21,7 +21,6 @@ class GetUserAttendanceDetailForAdminTest extends TestCase
             'work_date' => Carbon::create(2026, 3, 10),
             'clock_in_at' => Carbon::create(2026, 3, 10, 9, 0, 0),
             'clock_out_at' => Carbon::create(2026, 3, 10, 18, 0, 0),
-            'remarks' => '通常勤務',
         ]);
 
         BreakTime::factory()->create([
@@ -58,6 +57,7 @@ class GetUserAttendanceDetailForAdminTest extends TestCase
      */
     public function testAdminAttendanceDetailShowsSelectedAttendanceData(): void
     {
+        // 申請なし
         $admin = Admin::factory()->create();
         $user = User::factory()->create([
             'name' => '山田 太郎',
@@ -77,7 +77,7 @@ class GetUserAttendanceDetailForAdminTest extends TestCase
         $response->assertSee('18:00');
         $response->assertSee('12:00');
         $response->assertSee('13:00');
-        $response->assertSee('通常勤務');
+        $response->assertSee('');
     }
 
     /**

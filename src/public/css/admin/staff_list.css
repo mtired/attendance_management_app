@@ -8,16 +8,6 @@
 body {
     margin: 0;
     color: #111;
-    background: #f0eff2;
-    font-family:
-        system-ui,
-        -apple-system,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        "Noto Sans JP",
-        sans-serif;
 }
 
 /* ====== Page ====== */
@@ -36,7 +26,7 @@ body {
     gap: 12px;
     font-size: 22px;
     font-weight: 800;
-    margin: 12px 0 18px;
+    margin: 12px 0 60px;
 }
 
 .staff-index__title-bar {
@@ -49,7 +39,7 @@ body {
 /* ====== Table ====== */
 .staff-table {
     background: #fff;
-    border: 1px solid #e2e2e2;
+    border: 1px solid #e1e1e1;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -59,41 +49,44 @@ body {
     border-collapse: collapse;
 }
 
-.staff-table__head .staff-table__row {
-    background: #fafafa;
-}
-
 .staff-table__th,
 .staff-table__td {
     padding: 12px 14px;
-    border-bottom: 1px solid #ededed;
+    border-bottom: 2px solid #e1e1e1;
     text-align: center;
     font-size: 13px;
 }
 
 .staff-table__th {
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.staff-table__th {
     color: #737373;
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: 15%;
 }
 
 .staff-table__td {
     color: #737373;
     font-weight: 700;
+    letter-spacing: 15%;
 }
 
-.staff-table__row:last-child .staff-table__td {
-    border-bottom: none;
+.staff-table__table th:first-child,
+.staff-table__table td:first-child {
+    padding-left: 120px;
+}
+
+.staff-table__table th:last-child,
+.staff-table__table td:last-child {
+    padding-right: 120px;
 }
 
 .staff-table__detail {
     color: #111;
     text-decoration: none;
     font-weight: 900;
-}
-
-.staff-table__detail:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
 }
 
 .staff-table__empty {
@@ -103,9 +96,9 @@ body {
 }
 
 /* ===============================
-   タブレット（768–850px）
+   タブレット（768px）
 ================================*/
-@media (min-width: 768px) and (max-width: 850px) {
+@media (max-width: 768px) {
     .site-header__inner {
         padding: 0 16px;
     }

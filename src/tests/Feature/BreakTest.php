@@ -191,7 +191,6 @@ class BreakTest extends TestCase
 
         $response->assertStatus(200);
 
-        // 30分休憩なので一覧画面では 0:30
         $response->assertSee('0:30');
 
         Carbon::setTestNow();

@@ -84,7 +84,7 @@
                 const timeEl = document.getElementById('now-time');
                 if (!dateEl || !timeEl) return; // 要素なければ何もしない
 
-                dateEl.textContent = `${y}年${m}月${d}日（${week}）`;
+                dateEl.textContent = `${y}年${m}月${d}日(${week})`;
                 timeEl.textContent = `${hh}:${mm}`;
             }
 
