@@ -1,0 +1,134 @@
+.login {
+    padding: 60px 16px;
+    background: #f0eff2;
+}
+
+.login__inner {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.login__title {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: #000000;
+    text-align: center;
+    margin: 0 0 40px;
+}
+
+/* ログインフォーム */
+.login__form {
+    width: 100%;
+}
+
+.login__group {
+    margin-bottom: 26px;
+}
+
+.login__label {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    text-align: left;
+    margin: 0 0 10px;
+}
+
+.login__input {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 0 14px;
+    font-size: 18px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.login__group:nth-of-type(2) .login__input,
+.login__group:nth-of-type(4) .login__input {
+    height: 58px;
+}
+
+/* ログインボタン */
+.login__actions {
+    display: flex;
+    justify-content: center;
+}
+
+.login__button {
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    background: #000000;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 80px;
+}
+
+.login__button:hover {
+    opacity: 0.9;
+}
+
+/* エラーメッセージ */
+.is-invalid {
+    border: 1px solid #e00;
+}
+
+.form-error {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #e00;
+}
+
+.error-box {
+    padding: 12px;
+    border: 1px solid #e00;
+}
+
+/* ===============================
+   タブレット（768px）
+================================*/
+@media (min-width: 768px) {
+    .login {
+        padding: 40px 16px;
+    }
+
+    .login__inner {
+        max-width: 620px;
+    }
+
+    .login__title {
+        font-size: 30px;
+        margin-bottom: 28px;
+    }
+
+    .login__label {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .login__group {
+        margin-bottom: 20px;
+    }
+
+    .login__input {
+        height: 52px;
+        font-size: 16px;
+    }
+
+    .login__group:nth-of-type(2) .login__input,
+    .login__group:nth-of-type(4) .login__input {
+        height: 52px;
+    }
+
+    .login__button {
+        height: 56px;
+        font-size: 22px;
+        margin-top: 32px;
+    }
+}

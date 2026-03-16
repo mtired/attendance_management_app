@@ -1,0 +1,119 @@
+/* ====== Base ====== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: #111;
+}
+
+/* ====== Page ====== */
+.staff-index {
+    padding: 40px 16px 80px;
+}
+
+.staff-index__inner {
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+.staff-index__title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 12px 0 60px;
+}
+
+.staff-index__title-bar {
+    width: 4px;
+    height: 22px;
+    background: #000;
+    border-radius: 2px;
+}
+
+/* ====== Table ====== */
+.staff-table {
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.staff-table__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff-table__th,
+.staff-table__td {
+    padding: 12px 14px;
+    border-bottom: 2px solid #e1e1e1;
+    text-align: center;
+    font-size: 13px;
+}
+
+.staff-table__th {
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.staff-table__th {
+    color: #737373;
+    font-weight: 700;
+    letter-spacing: 15%;
+}
+
+.staff-table__td {
+    color: #737373;
+    font-weight: 700;
+    letter-spacing: 15%;
+}
+
+.staff-table__table th:first-child,
+.staff-table__table td:first-child {
+    padding-left: 120px;
+}
+
+.staff-table__table th:last-child,
+.staff-table__table td:last-child {
+    padding-right: 120px;
+}
+
+.staff-table__detail {
+    color: #111;
+    text-decoration: none;
+    font-weight: 900;
+}
+
+.staff-table__empty {
+    padding: 22px 14px;
+    color: #777;
+    font-weight: 700;
+}
+
+/* ===============================
+   タブレット（768px）
+================================*/
+@media (max-width: 768px) {
+    .site-header__inner {
+        padding: 0 16px;
+    }
+
+    .site-header__nav {
+        gap: 14px;
+    }
+
+    .staff-index__inner {
+        max-width: 100%;
+    }
+
+    .staff-table__th,
+    .staff-table__td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+}
